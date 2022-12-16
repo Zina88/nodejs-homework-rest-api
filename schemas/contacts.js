@@ -1,13 +1,29 @@
-const Joi = require('joi');
-const numberPattern =
-  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+const Joi = require("Joi");
 
-const contactSchema = Joi.object({
+const addSchema = Joi.object({
   name: Joi.string().min(3).max(30).required(),
   email: Joi.string().email().required(),
-  phone: Joi.string().pattern(numberPattern).min(9).max(11).required(),
+  phone: Joi.string().min(7).max(16).required(),
+  favorite: Joi.boolean(),
 });
 
+const updateSchema = Joi.object({
+  name: Joi.string().min(3).max(30).required(),
+  email: Joi.string().email().required(),
+  phone: Joi.string().min(7).max(16).required(),
+  favorite: Joi.boolean().required(),
+});
+
+const updateFavoriteSchema = Joi.object({
+  favorite: Joi.boolean().required(),
+});
+
+const schemas = {
+  addSchema,
+  updateSchema,
+  updateFavoriteSchema,
+};
+
 module.exports = {
-    contactSchema
-}
+  schemas,
+};
